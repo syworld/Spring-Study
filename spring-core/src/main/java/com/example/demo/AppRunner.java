@@ -38,6 +38,9 @@ public class AppRunner implements ApplicationRunner {
 //    com.example.demo.Single@19ee1ae6
 //    com.example.demo.Single@19ee1ae6
 //    com.example.demo.Single@19ee1ae6
+
+
+//    proxyMode = ScopedProxyMode.TARGET_CLASS 일 경우는 매번 다른 인스턴스
 //    PROTO BY SINGLE
 //    com.example.demo.Proto@5f117b3d
 //    com.example.demo.Proto@5f117b3d

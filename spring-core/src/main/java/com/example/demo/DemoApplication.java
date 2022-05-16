@@ -7,7 +7,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
+// SpringBoot에서 ComponentScan과 Configuration 설정 모두해주는 어노테이션
+//@SpringBootApplication
 public class DemoApplication {
 
 	public static void main(String[] args) {

@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
@@ -23,6 +24,10 @@ public class AppRunner implements ApplicationRunner {
 
   @Autowired
   TestBookRepository testBookRepository;
+
+  // Enviroment property
+  @Value("${app.about}")
+  String appAbout;
 
   @Override
   public void run(ApplicationArguments args) throws Exception{
@@ -66,9 +71,21 @@ public class AppRunner implements ApplicationRunner {
 
     // EnvironmentCapable
     Environment environment = ctx.getEnvironment();
+    // profile
     System.out.println(Arrays.toString(environment.getActiveProfiles()));
     System.out.println(Arrays.toString(environment.getDefaultProfiles()));
-
+    // property
+    /**
+     * StandardServletEnvironment의 우선순위
+     * ServletConfig 매개변수
+     * ServletContext 매개변수
+     * JNDI (java:comp/env/)
+     * JVM 시스템 프로퍼티 (-Dkey=”value”)
+     * JVM 시스템 환경 변수 (운영 체제 환경 변수)
+     */
+    System.out.println(environment.getProperty("app.name")); // JVM system property -Dkey="value"
+    System.out.println(environment.getProperty("app.about"));
+    System.out.println(environment.getProperty(appAbout));
 
 
   }

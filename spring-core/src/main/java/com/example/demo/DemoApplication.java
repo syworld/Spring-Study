@@ -6,10 +6,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.GenericApplicationContext;
 import sample.SampleService;
 
 @SpringBootApplication
+@PropertySource("classpath:/app.properties")
 public class DemoApplication {
 
 	@Autowired

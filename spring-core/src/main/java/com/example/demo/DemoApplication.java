@@ -11,10 +11,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.scheduling.annotation.EnableAsync;
 import sample.SampleService;
 
 @SpringBootApplication
 @PropertySource("classpath:/app.properties")
+@EnableAsync
 public class DemoApplication {
 
 	@Autowired

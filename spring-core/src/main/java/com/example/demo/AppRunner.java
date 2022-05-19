@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -35,6 +36,10 @@ public class AppRunner implements ApplicationRunner {
   // MessageSource
   @Autowired
   MessageSource messageSource;
+
+  //ApplicationEventPublisher
+  @Autowired
+  ApplicationEventPublisher publishEvent;
 
   @Override
   public void run(ApplicationArguments args) throws Exception{
@@ -95,13 +100,16 @@ public class AppRunner implements ApplicationRunner {
     System.out.println(environment.getProperty(appAbout));
 
     // MessageSource
-    while(true){
-      System.out.println(messageSource.getClass()); // resource bundle을 읽음
-      System.out.println(messageSource.getMessage("greeting", new String[]{"Tom"}, Locale.KOREA));
-      System.out.println(messageSource.getMessage("greeting", new String[]{"Tom"}, Locale.getDefault()));
-      Thread.sleep(1000l);
-    }
+//    while(true){
+//      System.out.println(messageSource.getClass()); // resource bundle을 읽음
+//      System.out.println(messageSource.getMessage("greeting", new String[]{"Tom"}, Locale.KOREA));
+//      System.out.println(messageSource.getMessage("greeting", new String[]{"Tom"}, Locale.getDefault()));
+//      Thread.sleep(1000l);
+//    }
 
+
+    // ApplicationEventPublisher 이벤트 발생
+    publishEvent.publishEvent(new MyEvent(this, 100));
 
   }
 

@@ -21,6 +21,9 @@ public class AppRunner implements ApplicationRunner {
   @Autowired
   ApplicationContext ctx;
 
+  @Autowired
+  TestBookRepository testBookRepository;
+
   @Override
   public void run(ApplicationArguments args) throws Exception{
     // Singleton : application 전체에서 하나의 인스턴스만 사용

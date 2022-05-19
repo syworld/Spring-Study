@@ -95,9 +95,12 @@ public class AppRunner implements ApplicationRunner {
     System.out.println(environment.getProperty(appAbout));
 
     // MessageSource
-    System.out.println(messageSource.getClass()); // resource bundle을 읽음
-    System.out.println(messageSource.getMessage("greeting", new String[]{"Tom"}, Locale.KOREA));
-    System.out.println(messageSource.getMessage("greeting", new String[]{"Tom"}, Locale.getDefault()));
+    while(true){
+      System.out.println(messageSource.getClass()); // resource bundle을 읽음
+      System.out.println(messageSource.getMessage("greeting", new String[]{"Tom"}, Locale.KOREA));
+      System.out.println(messageSource.getMessage("greeting", new String[]{"Tom"}, Locale.getDefault()));
+      Thread.sleep(1000l);
+    }
 
 
   }

@@ -6,8 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import sample.SampleService;
 
 @SpringBootApplication
@@ -42,6 +45,15 @@ public class DemoApplication {
 
 
 
+	}
+
+	@Bean
+	public MessageSource messageSource(){
+		var messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:/messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.setCacheSeconds(3);
+		return messageSource;
 	}
 
 }

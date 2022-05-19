@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -37,9 +41,13 @@ public class AppRunner implements ApplicationRunner {
   @Autowired
   MessageSource messageSource;
 
-  //ApplicationEventPublisher
+  // ApplicationEventPublisher
   @Autowired
   ApplicationEventPublisher publishEvent;
+
+  // ResourceLoader
+  @Autowired
+  ResourceLoader resourceLoader;
 
   @Override
   public void run(ApplicationArguments args) throws Exception{
@@ -110,6 +118,12 @@ public class AppRunner implements ApplicationRunner {
 
     // ApplicationEventPublisher 이벤트 발생
     publishEvent.publishEvent(new MyEvent(this, 100));
+
+    // ResourceLoader 리소스를 읽어옴
+    Resource resource = resourceLoader.getResource("classpath:test.txt");
+    System.out.println(resource.exists());
+    System.out.println(resource.getDescription());
+    System.out.println(Files.readString(Path.of(resource.getURI())));
 
   }
 

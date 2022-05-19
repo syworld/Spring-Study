@@ -1,11 +1,13 @@
 package com.example.demo;
 
 import java.util.Arrays;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -22,12 +24,17 @@ public class AppRunner implements ApplicationRunner {
   @Autowired
   ApplicationContext ctx;
 
+  // EnvironmentCapable
   @Autowired
   TestBookRepository testBookRepository;
 
-  // Enviroment property
   @Value("${app.about}")
   String appAbout;
+
+
+  // MessageSource
+  @Autowired
+  MessageSource messageSource;
 
   @Override
   public void run(ApplicationArguments args) throws Exception{
@@ -86,6 +93,11 @@ public class AppRunner implements ApplicationRunner {
     System.out.println(environment.getProperty("app.name")); // JVM system property -Dkey="value"
     System.out.println(environment.getProperty("app.about"));
     System.out.println(environment.getProperty(appAbout));
+
+    // MessageSource
+    System.out.println(messageSource.getClass()); // resource bundle을 읽음
+    System.out.println(messageSource.getMessage("greeting", new String[]{"Tom"}, Locale.KOREA));
+    System.out.println(messageSource.getMessage("greeting", new String[]{"Tom"}, Locale.getDefault()));
 
 
   }

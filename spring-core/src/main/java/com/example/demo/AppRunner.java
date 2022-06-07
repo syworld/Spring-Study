@@ -120,7 +120,12 @@ public class AppRunner implements ApplicationRunner {
     publishEvent.publishEvent(new MyEvent(this, 100));
 
     // ResourceLoader 리소스를 읽어옴
+    System.out.println(resourceLoader.getClass()); // class org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext
+    // Resource resource = resourceLoader.getResource("test.txt"); // class org.springframework.web.context.support.ServletContextResource 찾을 수 없음
+
     Resource resource = resourceLoader.getResource("classpath:test.txt");
+    System.out.println(resource.getClass()); // class org.springframework.core.io.ClassPathResource
+
     System.out.println(resource.exists());
     System.out.println(resource.getDescription());
     System.out.println(Files.readString(Path.of(resource.getURI())));

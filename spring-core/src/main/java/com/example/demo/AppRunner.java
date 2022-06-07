@@ -17,6 +17,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 @Component
 public class AppRunner implements ApplicationRunner {
@@ -50,6 +51,10 @@ public class AppRunner implements ApplicationRunner {
   // ResourceLoader
   @Autowired
   ResourceLoader resourceLoader;
+
+  // Validator
+  @Autowired
+  Validator validator;
 
   @Override
   public void run(ApplicationArguments args) throws Exception{
@@ -133,7 +138,7 @@ public class AppRunner implements ApplicationRunner {
     System.out.println(Files.readString(Path.of(resource.getURI())));
 
 
-    // Validator
+    // Validator #1 직접 구현
 
     //    true
     //----error code----
@@ -142,11 +147,42 @@ public class AppRunner implements ApplicationRunner {
     //notEmpty.java.lang.String
     //notEmpty
     //Empty title not allowed
+//    Event event = new Event();
+//    EventValidator eventValidator = new EventValidator();
+//    Errors errors = new BeanPropertyBindingResult(event, "event");
+//    eventValidator.validate(event, errors);
+//    System.out.println(errors.hasErrors());
+//    errors.getAllErrors().forEach(e-> {
+//      System.out.println("----error code----");
+//      Arrays.stream(e.getCodes()).forEach(System.out::println);
+//      System.out.println(e.getDefaultMessage());
+//    });
+
+
+    // Validator #2 SpringBoot에서는 LocalValidatorFactoryBean 빈으로 자동 등록
+
+    //class org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
+    //true
+    //----error code----
+    //Min.event.title
+    //Min.title
+    //Min.java.lang.String
+    //Min
+    //10 이상이어야 합니다
+    //----error code----
+    //NotNull.event.id
+    //NotNull.id
+    //NotNull.java.lang.Integer
+    //NotNull
+    //널이어서는 안됩니다
+    System.out.println(validator.getClass());
     Event event = new Event();
-    EventValidator eventValidator = new EventValidator();
+    event.setTitle("WW");
     Errors errors = new BeanPropertyBindingResult(event, "event");
-    eventValidator.validate(event, errors);
+    validator.validate(event, errors);
+
     System.out.println(errors.hasErrors());
+
     errors.getAllErrors().forEach(e-> {
       System.out.println("----error code----");
       Arrays.stream(e.getCodes()).forEach(System.out::println);

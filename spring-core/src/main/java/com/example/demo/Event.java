@@ -1,9 +1,14 @@
 package com.example.demo;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class Event {
 
+  @NotNull
   Integer id;
 
+  @Min(10)
   String title;
 
   public Integer getId() {

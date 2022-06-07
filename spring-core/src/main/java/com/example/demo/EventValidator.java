@@ -5,6 +5,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 public class EventValidator implements Validator {
+  // SpringBoot에서는 LocalValidatorFactoryBean 빈으로 자동 등록
 
   @Override
   public boolean supports(Class<?> clazz) {

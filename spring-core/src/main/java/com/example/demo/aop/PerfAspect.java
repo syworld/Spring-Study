@@ -17,8 +17,20 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class PerfAspect {
 
-  // Advice
-  @Around("execution(* com.example..*.EventService.*(..))")
+  // Advice: @Before, @AfterReturning, @AfterThrowing, @Around
+  // PointCut: execution, @annotation, bean
+
+
+//  @Around("execution(* com.example..*.EventService.*(..))")
+//  public Object logPerf(ProceedingJoinPoint pjp) throws Throwable {
+//    long begin = System.currentTimeMillis();
+//    Object retVal = pjp.proceed(); // 메소드 호출
+//    System.out.println(System.currentTimeMillis() - begin);
+//    return retVal;
+//  }
+
+  // delete에만 적용안되도록 어노테이션으로 어드바이스 정의
+  @Around("@annotation(PerfLogging)")
   public Object logPerf(ProceedingJoinPoint pjp) throws Throwable {
     long begin = System.currentTimeMillis();
     Object retVal = pjp.proceed(); // 메소드 호출

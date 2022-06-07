@@ -11,6 +11,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -55,6 +56,10 @@ public class AppRunner implements ApplicationRunner {
   // Validator
   @Autowired
   Validator validator;
+
+  // DefaultFormatting
+  @Autowired
+  ConversionService conversionService;
 
   @Override
   public void run(ApplicationArguments args) throws Exception{
@@ -188,6 +193,10 @@ public class AppRunner implements ApplicationRunner {
       Arrays.stream(e.getCodes()).forEach(System.out::println);
       System.out.println(e.getDefaultMessage());
     });
+
+    //class org.springframework.boot.autoconfigure.web.format.WebConversionService : Spring Boot 가 제공. DefaultFormatConversionService 상속
+    System.out.println(conversionService.getClass().toString());
+    System.out.println(conversionService);
   }
 
 

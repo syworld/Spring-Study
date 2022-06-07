@@ -19,8 +19,8 @@ import sample.SampleService;
 @EnableAsync
 public class DemoApplication {
 
-	@Autowired
-	SampleService sampleService;
+//	@Autowired
+//	SampleService sampleService;
 
 	public static void main(String[] args) {
 		/*
